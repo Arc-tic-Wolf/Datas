@@ -15,6 +15,16 @@ class Food(object):
         return self.name+": <"+str(self.val)\
             +", "+str(self.cals)+">"
 
+def buildMenu(names, values, calories):
+    """names, values, calories lists of same length.
+       name a list of strings
+       values and calories lists of numbers
+       returns list of Foods"""
+    menu = []
+    for i in range(len(values)):
+        menu.append(Food(names[i], values[i],
+                          calories[i]))
+    return menu
 def greedy(items, maxCost, keyFunction):
     """Assumes items a list, maxCost >= 0,
          keyFunction maps elements of items to numbers"""
@@ -26,7 +36,7 @@ def greedy(items, maxCost, keyFunction):
         if (totalCost+itemsCopy[i].getCost()) <= maxCost:
             result.append(itemsCopy[i])
             totalCost += itemsCopy[i].getCost()
-            totalValue += itemsCopy[i].getValue()
+            totalValue += itemsCopy[i].getVal()
     return (result, totalValue)
 
 def testGreedy(items, constraint, keyFunction):
@@ -38,7 +48,7 @@ def testGreedy(items, constraint, keyFunction):
 def testGreedys(foods, maxUnits):
     print('Use greedy by value to allocate', maxUnits,
           'calories')
-    testGreedy(foods, maxUnits, Food.getValue)
+    testGreedy(foods, maxUnits, Food.getVal)
     print('\nUse greedy by cost to allocate', maxUnits,
           'calories')
     testGreedy(foods, maxUnits,
